@@ -9,60 +9,54 @@
 void insertionSort(int *array, int numItems)
 {
 
-    
+    int innerLoopItems = numItems + 1;     // tracks the inner loop items
+    bool IterationHadASwitch = false;      // checks if there was a switch
+
+    // -----------------------------------------------------------------
+    // outer loop: controls each iteration to check if the first iteration 
+    //  as safety measure to check if array is already sorted
+    // -----------------------------------------------------------------
     for (int i = 0; i < numItems; i++)
     {
-        int innerLoopItems = numItems + 1;     // tracks the inner loop items
-        bool IterationHadASwitch = false;      // checks if there was a switch
+
+        innerLoopItems--;
 
         // -----------------------------------------------------------------
-        // outer loop: controls each iteration to check if the first iteration 
-        //  as safety measure to check if array is already sorted
+        // inner loop implements the insertion sort algorithm
         // -----------------------------------------------------------------
-        for (i = 0; i < numItems; i++)
+        for (int j = 1; j < innerLoopItems; j++)
         {
-
-            innerLoopItems--;
-
-            // -----------------------------------------------------------------
-            // inner loop implements the insertion sort algorithm
-            // -----------------------------------------------------------------
-            for (int j = 1; j < innerLoopItems; j++)
+            if (array[j] < array[j-1])
             {
-                if (array[j] < array[j-1])
-                {
-                    int temp = array[j];
-                    array[j] = array[j - 1];
-                    array[j - 1] = temp;
+                int temp = array[j];
+                array[j] = array[j - 1];
+                array[j - 1] = temp;
 
-                    IterationHadASwitch = true;
-                }
-                else
-                {
-                    continue;
-                }
+                IterationHadASwitch = true;
             }
-
-            printf("Iteration %d ::: ", i + 1);
-
-            for(int m = 0; m < numItems; m++)
+            else
             {
-                printf("%d ", array[m]);
+                continue;
             }
-
-            printf("\n");
         }
 
-        // exits early if array is already sorted
-        if (IterationHadASwitch == false)
+        printf("Iteration %d ::: ", i + 1);
+
+        for(int m = 0; m < numItems; m++)
         {
-            printf("Early exit as array is sorted\n");
-            break;
+            printf("%d ", array[m]);
         }
+
+        printf("\n");
     }
 
+    // exits early if array is already sorted
+    if (IterationHadASwitch == false)
+    {
+        printf("Early exit as array is sorted\n");
+        return;
+    }
 }
-
 
 int main()
 {
